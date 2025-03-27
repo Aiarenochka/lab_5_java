@@ -36,13 +36,15 @@ public class BookRepositoryTextImpl implements BookRepository {
             String line;
             while((line = in.readLine()) != null) {
                 String[] parts = line.split("\\|");
-                if (parts.length == 5) {
+                if (parts.length == 6) {
                     books[counter] = new Book(
                             Integer.parseInt(parts[0]),
                             parts[1],
                             parts[2],
                             parts[3],
-                            Integer.parseInt(parts[4]));
+                            Integer.parseInt(parts[4]),
+                            Integer.parseInt(parts[5])
+                    );
                 }
                 counter++;
             }

@@ -8,13 +8,15 @@ public class Book implements Serializable {
     private String author;
     private String publisher;
     private int pages;
+    private int year;
 
-    public Book(int id, String title, String author, String publisher, int pages) {
+    public Book(int id, String title, String author, String publisher, int pages, int year) {
         this.id = id;
         this.title = title;
         this.author = author;
         this.publisher = publisher;
         this.pages = pages;
+        this.year = year;
     }
 
     public int getId() {
@@ -61,7 +63,16 @@ public class Book implements Serializable {
                 "  title='" + title + "',\n" +
                 "  author='" + author + "',\n" +
                 "  publisher='" + publisher + "',\n" +
-                "  pages=" + pages + "\n" +
+                "  pages=" + pages + ",\n" +
+                "  year=" + year + "\n" +
                 '}';
+    }
+
+    public int getYear() {
+        return year;
+    }
+
+    public void setYear(int year) {
+        this.year = year;
     }
 }
