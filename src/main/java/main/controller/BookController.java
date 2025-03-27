@@ -56,7 +56,7 @@ public class BookController {
                 case 6 -> {
                     view.prompt("Load from text file: ");
                     initialBooks = textRepo.loadFromFile(scanner.nextLine());
-                    if (initialBooks != null) {
+                    if (initialBooks[0] != null) {
                         view.prompt("Books loaded successfully!");
                         view.showBooks(initialBooks);
                     }
@@ -66,7 +66,7 @@ public class BookController {
                 case 7 -> {
                     view.prompt("Load from binary file: ");
                     initialBooks = binaryRepo.loadFromFile(scanner.nextLine());
-                    if (initialBooks != null) {
+                    if (initialBooks[0] != null) {
                         view.prompt("Books loaded successfully!");
                         view.showBooks(initialBooks);
                     } else {

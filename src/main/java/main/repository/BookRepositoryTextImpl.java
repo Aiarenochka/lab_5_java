@@ -11,12 +11,13 @@ public class BookRepositoryTextImpl implements BookRepository {
     public void saveToFile(Book[] books, File file) {
         try (BufferedWriter writer = Files.newBufferedWriter(file.toPath(), StandardCharsets.UTF_8)) {
             for (Book book : books) {
-                writer.write(String.format("%d|%s|%s|%s|%d%n",
+                writer.write(String.format("%d|%s|%s|%s|%d|%d%n",
                         book.getId(),
                         book.getTitle(),
                         book.getAuthor(),
                         book.getPublisher(),
-                        book.getPages()));
+                        book.getPages(),
+                        book.getYear()));
             }
         } catch (IOException e) {
             throw new RuntimeException("Error writing to text file", e);
