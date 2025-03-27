@@ -26,38 +26,52 @@ public class BookController {
             switch (menu) {
                 case 1 -> {
                     view.prompt("Enter author name: ");
-                    view.showBooks(service.findBooksByAuthor(initialBooks, scanner.nextLine()));
+                    if (initialBooks != null) {
+                        view.showBooks(service.findBooksByAuthor(initialBooks, scanner.nextLine()));
+                    }
                 }
                 case 2 -> {
                     view.prompt("Enter publisher: ");
-                    view.showBooks(service.findBooksByPublisher(initialBooks, scanner.nextLine()));
+                    if (initialBooks != null) {
+                        view.showBooks(service.findBooksByPublisher(initialBooks, scanner.nextLine()));
+                    }
                 }
                 case 3 -> {
                     view.prompt("Enter min pages: ");
-                    view.showBooks(service.findBooksByMinPages(initialBooks, scanner.nextInt()));
+                    if (initialBooks != null) {
+                        view.showBooks(service.findBooksByMinPages(initialBooks, scanner.nextInt()));
+                    }
                     scanner.nextLine();
                 }
                 case 4 -> {
                     view.prompt("Enter text filename: ");
                     textRepo.saveToFile(initialBooks, scanner.nextLine());
-                    System.out.println("Books saved successfully!");
+                    view.prompt("Books saved successfully!");
                 }
                 case 5 -> {
                     view.prompt("Enter binary filename: ");
                     binaryRepo.saveToFile(initialBooks, scanner.nextLine());
-                    System.out.println("Books saved successfully!");
+                    view.prompt("Books saved successfully!");
                 }
                 case 6 -> {
                     view.prompt("Load from text file: ");
                     initialBooks = textRepo.loadFromFile(scanner.nextLine());
-                    System.out.println("Books loaded successfully!");
-                    view.showBooks(initialBooks);
+                    if (initialBooks != null) {
+                        view.prompt("Books loaded successfully!");
+                        view.showBooks(initialBooks);
+                    }
+                    else {view.prompt("Books loaded failed!");}
+
                 }
                 case 7 -> {
                     view.prompt("Load from binary file: ");
                     initialBooks = binaryRepo.loadFromFile(scanner.nextLine());
-                    System.out.println("Books loaded successfully!");
-                    view.showBooks(initialBooks);
+                    if (initialBooks != null) {
+                        view.prompt("Books loaded successfully!");
+                        view.showBooks(initialBooks);
+                    } else {
+                        view.prompt("Books loaded failed!");
+                    }
                 }
                 case 0 -> {
                     break label;
