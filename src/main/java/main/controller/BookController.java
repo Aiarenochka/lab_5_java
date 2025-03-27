@@ -17,7 +17,6 @@ public class BookController {
     private final BookRepository binaryRepo = new BookRepositoryBinaryImpl();
 
     public void processBooks(Book[] initialBooks) {
-        Book[] currentBooks = initialBooks.clone(); // Работаем с копией массива
         label:
         while (true) {
             menuOptions.menuOptions();
@@ -26,44 +25,44 @@ public class BookController {
 
             switch (menu) {
                 case 1 -> {
-                    System.out.print("Enter author name: ");
-                    view.showBooks(service.findBooksByAuthor(currentBooks, scanner.nextLine()));
+                    view.prompt("Enter author name: ");
+                    view.showBooks(service.findBooksByAuthor(initialBooks, scanner.nextLine()));
                 }
                 case 2 -> {
-                    System.out.print("Enter publisher: ");
-                    view.showBooks(service.findBooksByPublisher(currentBooks, scanner.nextLine()));
+                    view.prompt("Enter publisher: ");
+                    view.showBooks(service.findBooksByPublisher(initialBooks, scanner.nextLine()));
                 }
                 case 3 -> {
-                    System.out.print("Enter min pages: ");
-                    view.showBooks(service.findBooksByMinPages(currentBooks, scanner.nextInt()));
+                    view.prompt("Enter min pages: ");
+                    view.showBooks(service.findBooksByMinPages(initialBooks, scanner.nextInt()));
                     scanner.nextLine();
                 }
                 case 4 -> {
-                    System.out.print("Enter text filename: ");
-                    textRepo.saveToFile(currentBooks, scanner.nextLine());
+                    view.prompt("Enter text filename: ");
+                    textRepo.saveToFile(initialBooks, scanner.nextLine());
                     System.out.println("Books saved successfully!");
                 }
                 case 5 -> {
-                    System.out.print("Enter binary filename: ");
-                    binaryRepo.saveToFile(currentBooks, scanner.nextLine());
+                    view.prompt("Enter binary filename: ");
+                    binaryRepo.saveToFile(initialBooks, scanner.nextLine());
                     System.out.println("Books saved successfully!");
                 }
                 case 6 -> {
-                    System.out.print("Load from text file: ");
-                    currentBooks = textRepo.loadFromFile(scanner.nextLine());
+                    view.prompt("Load from text file: ");
+                    initialBooks = textRepo.loadFromFile(scanner.nextLine());
                     System.out.println("Books loaded successfully!");
-                    view.showBooks(currentBooks);
+                    view.showBooks(initialBooks);
                 }
                 case 7 -> {
-                    System.out.print("Load from binary file: ");
-                    currentBooks = binaryRepo.loadFromFile(scanner.nextLine());
+                    view.prompt("Load from binary file: ");
+                    initialBooks = binaryRepo.loadFromFile(scanner.nextLine());
                     System.out.println("Books loaded successfully!");
-                    view.showBooks(currentBooks);
+                    view.showBooks(initialBooks);
                 }
                 case 0 -> {
                     break label;
                 }
-                default -> System.out.println("Invalid option, try again.");
+                default -> view.prompt("Invalid option, try again.");
             }
         }
     }

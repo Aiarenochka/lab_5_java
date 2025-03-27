@@ -4,7 +4,7 @@ import main.model.Book;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
-import java.util.stream.Stream;
+
 
 public class BookRepositoryTextImpl implements BookRepository {
     @Override
@@ -29,21 +29,29 @@ public class BookRepositoryTextImpl implements BookRepository {
     }
 
     @Override
-    public Book[] loadFromFile(File file) {
-        try (Stream<String> lines = Files.lines(file.toPath(), StandardCharsets.UTF_8)) {
-            return lines.map(line -> line.split("\\|"))
-                    .filter(parts -> parts.length == 5)
-                    .map(parts -> new Book(
+    public Book[] loadFromFile(File file){
+        int size = 5, counter = 0;
+        Book[] books = new Book[size];
+        try(BufferedReader in = Files.newBufferedReader(file.toPath(), StandardCharsets.UTF_8)) {
+            String line;
+            while((line = in.readLine()) != null) {
+                String[] parts = line.split("\\|");
+                if (parts.length == 5) {
+                    books[counter] = new Book(
                             Integer.parseInt(parts[0]),
                             parts[1],
                             parts[2],
                             parts[3],
-                            Integer.parseInt(parts[4])))
-                    .toArray(Book[]::new);
-        } catch (IOException e) {
-            throw new RuntimeException("Error reading from text file", e);
+                            Integer.parseInt(parts[4]));
+                }
+                counter++;
+            }
+        }catch (IOException e){
+            System.out.println("File not found");
         }
+        return books;
     }
+
 
     @Override
     public Book[] loadFromFile(String fileName) {

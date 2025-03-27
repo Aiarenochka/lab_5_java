@@ -12,4 +12,7 @@ public class View {
             }
         }
     }
+    public void prompt (String prompt) {
+        System.out.println(prompt);
+    }
 }
