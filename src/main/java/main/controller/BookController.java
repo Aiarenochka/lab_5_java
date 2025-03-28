@@ -4,6 +4,7 @@ import main.io.*;
 import main.model.Book;
 import main.repository.BookRepository;
 import main.repository.BookRepositoryBinaryImpl;
+import main.repository.BookRepositoryJSONImpl;
 import main.repository.BookRepositoryTextImpl;
 import main.service.BookService;
 import java.util.Scanner;
@@ -15,6 +16,7 @@ public class BookController {
     private final MenuPrinter menuOptions = new MenuPrinter();
     private final BookRepository textRepo = new BookRepositoryTextImpl();
     private final BookRepository binaryRepo = new BookRepositoryBinaryImpl();
+    private final BookRepository jsonRepo = new BookRepositoryJSONImpl();
 
     public void processBooks(Book[] initialBooks) {
         label:
@@ -53,7 +55,12 @@ public class BookController {
                     binaryRepo.saveToFile(initialBooks, scanner.nextLine());
                     view.prompt("Books saved successfully!");
                 }
-                case 6 -> {
+                case 6 ->{
+                    view.prompt("Enter JSON filename: ");
+                    jsonRepo.saveToFile(initialBooks, scanner.nextLine());
+                    view.prompt("Books saved successfully!");
+                }
+                case 7 -> {
                     view.prompt("Load from text file: ");
                     initialBooks = textRepo.loadFromFile(scanner.nextLine());
                     if (initialBooks[0] != null) {
@@ -61,12 +68,21 @@ public class BookController {
                         view.showBooks(initialBooks);
                     }
                     else {view.prompt("Books loaded failed!");}
-
                 }
-                case 7 -> {
+                case 8 -> {
                     view.prompt("Load from binary file: ");
                     initialBooks = binaryRepo.loadFromFile(scanner.nextLine());
-                    if (initialBooks[0] != null) {
+                    if (initialBooks != null) {
+                        view.prompt("Books loaded successfully!");
+                        view.showBooks(initialBooks);
+                    } else {
+                        view.prompt("Books loaded failed!");
+                    }
+                }
+                case 9 ->{
+                    view.prompt("Load from JSON file: ");
+                    initialBooks = jsonRepo.loadFromFile(scanner.nextLine());
+                    if (initialBooks != null) {
                         view.prompt("Books loaded successfully!");
                         view.showBooks(initialBooks);
                     } else {
@@ -76,8 +92,10 @@ public class BookController {
                 case 0 -> {
                     break label;
                 }
+
                 default -> view.prompt("Invalid option, try again.");
             }
         }
     }
 }
+

@@ -1,0 +1,42 @@
+[
+  {
+    "id": 1,
+    "title": "The Catcher in the Rye",
+    "author": "J.D. Salinger",
+    "publisher": "Little, Brown and Company",
+    "pages": 277,
+    "year": 1951
+  },
+  {
+    "id": 2,
+    "title": "1984",
+    "author": "George Orwell",
+    "publisher": "Secker \u0026 Warburg",
+    "pages": 328,
+    "year": 1949
+  },
+  {
+    "id": 3,
+    "title": "To Kill a Mockingbird",
+    "author": "Harper Lee",
+    "publisher": "J.B. Lippincott \u0026 Co.",
+    "pages": 281,
+    "year": 1960
+  },
+  {
+    "id": 4,
+    "title": "Brave New World",
+    "author": "Aldous Huxley",
+    "publisher": "Chatto \u0026 Windus",
+    "pages": 311,
+    "year": 1939
+  },
+  {
+    "id": 5,
+    "title": "Fahrenheit 451",
+    "author": "Ray Bradbury",
+    "publisher": "Ballantine Books",
+    "pages": 249,
+    "year": 1953
+  }
+]
